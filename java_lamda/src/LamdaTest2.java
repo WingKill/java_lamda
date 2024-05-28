@@ -6,8 +6,8 @@ import java.util.List;
 class SLenComp implements Comparator<String> {
 
 	@Override
-	public int compare(String o1, String o2) {
-		return o1.length() - o2.length();
+	public int compare(String s1, String s2) {
+		return s1.length() - s2.length();
 	}
 	
 }
@@ -23,7 +23,8 @@ public class LamdaTest2 {
 		// C언어에서는 함수 포인터라는 것이 있었음
 		
 		// 인스턴스보다 기능 하나가 필요한 상황 = 자바는 함수 자체를 전달하지 못했음 
-		Collections.sort(list, new SLenComp()); // 정렬
+		// Collections.sort(list, new SLenComp()); // 정렬
+		Collections.sort(list, (s1,s2) -> {return s1.length() - s2.length();});
 		
 		for(String s : list) {
 			System.out.println(s);

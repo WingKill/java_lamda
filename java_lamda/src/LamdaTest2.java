@@ -1,13 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntBinaryOperator;
-import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -45,9 +46,53 @@ class A{
 
 }
 
+class B{
+	B(int x, int y){
+		System.out.println(x+y);
+	}
+}
+
 // 람다가 필요한 상황
 public class LamdaTest2 {
 	public static void main(String[] args) {
+		Function<String, Integer> stringToInt;
+		//Integer apply(String t);
+		//int parseInt(String s);
+		
+		stringToInt = (s) -> Integer.valueOf(s);
+		stringToInt = Integer::parseInt;
+		System.out.println(stringToInt.apply("10"));		
+		
+		System.out.println("/////////////////////////////////////////");
+		
+		ArrayList<Number> lists = new ArrayList<Number>();
+		
+		// boolean addAll(Collection<? extends E> c)
+		Consumer<Collection<Number>> addElements;
+		addElements = (arr) -> lists.addAll(arr);
+		addElements = lists::addAll;
+		addElements.accept(List.of(1,2,3,4,5));
+		
+		System.out.println(lists);
+		
+		System.out.println("/////////////////////////////////////////");
+		
+		Function<String, Integer> size;
+		size = (s) -> s.length();
+		// 매개변수를 참조시켜서 줄이는 것.
+		size = String::length;
+		System.out.println(size.apply("hello"));
+		System.out.println("/////////////////////////////////////////");
+		// 생성자도 메서드 참조가 가능하다.
+		BiFunction<Integer, Integer, Object> constructor;
+		constructor = (x,y) -> new B(x,y);
+		constructor = B::new;
+		
+		constructor.apply(10, 20);
+		
+		
+		System.out.println("/////////////////////////////////////////");
+		System.out.println("////////////////20240529/////////////////");
 		// int applyAsInt(int left, int right);
 		// IntBinaryOperator operator = (x,y) -> Math.max(x, y);
 		
@@ -108,7 +153,7 @@ public class LamdaTest2 {
 		Predicate<Integer> predicate = (num) -> num < 10;
 		System.out.println(predicate.test(2));		
 		System.out.println("/////////////////////////////////////////");
-		/////////////////////////////////////////
+		/////////////20240528///////////////
 		Calculate2<Integer> cal = (a,b) -> a+b;
 		
 		System.out.println(cal.cal(1, 2)); 

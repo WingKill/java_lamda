@@ -33,6 +33,6 @@ public class StreamTest {
 		
 		// 스트림 특징 : 일회성
 		stream = list.stream();
-		stream.filter(i -> i % 2 == 0).forEach(i -> System.out.println(i + "\t"));		
+		stream.filter(i -> i % 2 == 0).forEach(i -> System.out.println(i + "\t")); 		
 	}
 }
